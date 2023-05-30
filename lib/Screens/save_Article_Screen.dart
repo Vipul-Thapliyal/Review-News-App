@@ -67,14 +67,14 @@ class _SaveArticleScreenState extends State<SaveArticleScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SavedNewsDetailsScreen(
-                        title: homeScreenProvider.articlesList[index].title.toString(),
-                        author: homeScreenProvider.articlesList[index].author.toString(),
-                        name: homeScreenProvider.articlesList[index].name.toString(),
-                        urlToImage: homeScreenProvider.articlesList[index].urlToImage.toString(),
-                        url: homeScreenProvider.articlesList[index].url.toString(),
-                        content: homeScreenProvider.articlesList[index].content.toString(),
-                        publishedAt: homeScreenProvider.articlesList[index].publishedAt.toString(),
-                        description: homeScreenProvider.articlesList[index].description.toString(),
+                        title: saveArticleListProvider.savedArticlesList[index].title.toString(),
+                        author: saveArticleListProvider.savedArticlesList[index].author.toString(),
+                        name: saveArticleListProvider.savedArticlesList[index].name.toString(),
+                        urlToImage: saveArticleListProvider.savedArticlesList[index].urlToImage.toString(),
+                        url: saveArticleListProvider.savedArticlesList[index].url.toString(),
+                        content: saveArticleListProvider.savedArticlesList[index].content.toString(),
+                        publishedAt: saveArticleListProvider.savedArticlesList[index].publishedAt.toString(),
+                        description: saveArticleListProvider.savedArticlesList[index].description.toString(),
                       ),
                       ),
                     );
