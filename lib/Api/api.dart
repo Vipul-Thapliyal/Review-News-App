@@ -11,15 +11,7 @@ class Api {
   Future<dynamic> get({required String endPoint}) async {
     const int TIME_OUT_DURATION = 100;
 
-    final queryParameters = {
-      "param1" : "q=tesla",
-      "param2" : "from=2023-04-30",
-      "param3" : "sortBy=publishedAt",
-      "param4" : "apiKey=407b60d366ba45eca22378ceab32488a",
-    };
-
-    // var link = "${AppUrl.appUrl}" + "${ApiKey.apiKey}";
-    var link = "${AppUrl.appUrl}" + queryParameters["param1"]! +"&" + queryParameters["param2"]! + "&"  + queryParameters["param3"]! + "&" + queryParameters["param4"]!;
+    var link = "${AppUrl.appUrl}" + "${endPoint}";
 
     var url = Uri.parse("$link");
 

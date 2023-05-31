@@ -30,12 +30,19 @@ class HomeScreenProvider with ChangeNotifier {
   }
 
 
-  Future<void> getNewsRespone(context) async {
+  Future<void> getNewsResponse(context) async {
     _articleList.clear();
 
-    var link = "https://newsapi.org/v2/everything?q=tesla&from=2023-04- 30&sortBy=publishedAt&apiKey=c1435bbe401f4b638ab25d623f2e64fa";
+    final queryParameters = {
+      "param1" : "q=tesla",
+      "param2" : "from=2023-04-30",
+      "param3" : "sortBy=publishedAt",
+      "param4" : "apiKey=407b60d366ba45eca22378ceab32488a",
+    };
 
-    final extractedData = await Api().get(endPoint: link.toString());
+    var endpoint = queryParameters["param1"]! +"&" + queryParameters["param2"]! + "&"  + queryParameters["param3"]! + "&" + queryParameters["param4"]!;
+
+    final extractedData = await Api().get(endPoint: endpoint.toString());
 
     final tempList = extractedData["articles"] as List<dynamic>;
     _articleList = addListItem(tempList);

@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Home Screen"),
       ),
       body: FutureBuilder(
-        future: homeScreenProvider.getNewsRespone(context),
+        future: homeScreenProvider.getNewsResponse(context),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return Center(

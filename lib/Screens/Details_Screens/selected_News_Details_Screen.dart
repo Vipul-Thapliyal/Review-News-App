@@ -37,7 +37,7 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final homeScreenProvider = Provider.of<HomeScreenProvider>(context, listen: false);
-    homeScreenProvider.getNewsRespone(context);
+    homeScreenProvider.getNewsResponse(context);
 
     return Scaffold(
       appBar: AppBar(
