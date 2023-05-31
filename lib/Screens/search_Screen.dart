@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -26,6 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 controller: userInput,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.name,
+                autofocus: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),

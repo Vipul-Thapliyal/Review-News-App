@@ -1,18 +1,5 @@
-class NewsModel {
-  String? status;
-  int? totalResults;
-  // List<Articles> articles;
-
-  NewsModel(
-    {
-      required this.status,
-      required this.totalResults,
-      // required this.articles,
-    }
-  );
-}
-
 class Articles {
+  var uniqueId;
   Source? source;
   String? name;
   var author;
@@ -26,6 +13,7 @@ class Articles {
   Articles(
     {
       // required this.source,
+      required this.uniqueId,
       required this.name,
       required this.author,
       required this.title,

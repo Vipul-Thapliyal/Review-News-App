@@ -11,6 +11,7 @@ class SavedArticleScreenProvider with ChangeNotifier {
 
   addData(
     {
+      uniqueId,
       author,
       title,
       name,
@@ -22,48 +23,28 @@ class SavedArticleScreenProvider with ChangeNotifier {
       int? index
     }
   ) {
+
     savedArticlesVar = SavedArticles(
       // source: element["source"],
-      author: author,
-      title: title,
-      name: name,
-      description: description,
-      url: url,
-      urlToImage: urlToImage,
-      publishedAt: publishedAt,
-      content: content,
+      uniqueId: uniqueId,
+      author: author ?? "",
+      title: title ?? "",
+      name: name ?? "",
+      description: description ?? "",
+      url: url ?? "",
+      urlToImage: urlToImage ?? "",
+      publishedAt: publishedAt ?? "",
+      content: content ?? "",
     );
     print("index data type");
-    // print(index.runtimeType);
-    // print(index.toString());
+
     _savedArticleList.add(savedArticlesVar!);
-    // _savedArticleList.insert(index!, savedArticlesVar!);
     notifyListeners();
   }
 
-  removeData(int index, String content) {
-    print("removed item at index" + "$index");
-    // _savedArticleList.removeAt(index);
-    // _savedArticleList.removeWhere((element) => element.content.toString() == "${content.toString()}");
-  }
 
-  // addListItem(Articles element) {
-  //   _savedArticleList.clear();
-  //     // print("element in home_screen");
-  //     // print(element.toString());
-  //     _savedArticleList.add(
-  //       SavedArticles(
-  //         // source: element["source"],
-  //         author: element.author,
-  //         title: element.title,
-  //         name: element.name,
-  //         description: element.description,
-  //         url: element.url,
-  //         urlToImage: element.urlToImage,
-  //         publishedAt: element.publishedAt,
-  //         content: element.content,
-  //       )
-  //     );
-  //   notifyListeners();
-  // }
+  removeItemById(uniqueId) {
+    _savedArticleList.removeWhere((element) => element.uniqueId == uniqueId);
+    notifyListeners();
+  }
 }

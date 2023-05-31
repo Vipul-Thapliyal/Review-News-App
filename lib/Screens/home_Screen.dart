@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:news_app/Conditional%20Tasks/save_News.dart';
 import 'package:news_app/Provider/home_Screen_Provider.dart';
@@ -17,17 +18,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
 
+
   @override
   Widget build(BuildContext context) {
     final homeScreenProvider = Provider.of<HomeScreenProvider>(context, listen: false);
     final savedArticleScreenProvider = Provider.of<SavedArticleScreenProvider>(context, listen: false);
-    homeScreenProvider.getNewsRespone(context);
-
-    int? addElementAtindex = 0;
-
-    // print(homeScreenProvider.articlesList[0].title.toString());
-    // print(homeScreenProvider.articlesList[0].source![0].name.toString());
-
 
     return Scaffold(
       appBar: AppBar(
@@ -46,18 +41,32 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text("An error has occurred, Please try again later"),
             );
           }
-          return
-            // Text(homeScreenProvider.newsModelVar!.status.toString());
-          Consumer<SaveNewsProvider>(
+          return Consumer<SaveNewsProvider>(
             builder: (context, value, child) {
               return ListView.builder(
                   itemCount: homeScreenProvider.articlesList.length,
                   itemBuilder: (context, index) {
-                    // return Text(homeScreenProvider.artclesList[index].title.toString());
-                    // return Text(homeScreenProvider.newsModelVar!.status.toString());
                     return Container(
                       margin: EdgeInsets.all(10),
                       child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SelectedNewsDetailsScreen(
+                              uniqueId: homeScreenProvider.articlesList[index].uniqueId,
+                              index: index,
+                              title: homeScreenProvider.articlesList[index].title.toString(),
+                              author: homeScreenProvider.articlesList[index].author.toString(),
+                              name: homeScreenProvider.articlesList[index].name.toString(),
+                              urlToImage: homeScreenProvider.articlesList[index].urlToImage.toString(),
+                              url: homeScreenProvider.articlesList[index].url.toString(),
+                              content: homeScreenProvider.articlesList[index].content.toString(),
+                              publishedAt: homeScreenProvider.articlesList[index].publishedAt.toString(),
+                              description: homeScreenProvider.articlesList[index].description.toString(),
+                            ),
+                            ),
+                          );
+                        },
                         leading: SizedBox(
                             height: 200.0,
                             width: 100.0, // fixed width and height
@@ -79,60 +88,28 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             )
                         ),
-                        title: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => SelectedNewsDetailsScreen(
-                                  title: homeScreenProvider.articlesList[index].title.toString(),
-                                  author: homeScreenProvider.articlesList[index].author.toString(),
-                                  name: homeScreenProvider.articlesList[index].name.toString(),
-                                  urlToImage: homeScreenProvider.articlesList[index].urlToImage.toString(),
-                                  url: homeScreenProvider.articlesList[index].url.toString(),
-                                  content: homeScreenProvider.articlesList[index].content.toString(),
-                                  publishedAt: homeScreenProvider.articlesList[index].publishedAt.toString(),
-                                  description: homeScreenProvider.articlesList[index].description.toString(),
-                                ),
+                        title: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "#${homeScreenProvider.articlesList[index].name.toString()}",
+                              style: TextStyle(
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "#${homeScreenProvider.articlesList[index].name.toString()}",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              Text(homeScreenProvider.articlesList[index].title.toString()),
-                            ],
-                          ),
+                            ),
+                            SizedBox(height: 5,),
+                            Text(homeScreenProvider.articlesList[index].title.toString()),
+                          ],
                         ),
                         trailing: Wrap(
                           spacing: 12, // space between two icons
                           children: <Widget>[
                             InkWell(
                               onTap: () {
-                                if(value.selectedItem.contains(index)) {
-                                  value.removeItem(index);
-                                  if(savedArticleScreenProvider.savedArticlesList.contains(index)) {
-
-                                  }
-                                  savedArticleScreenProvider.removeData(index.toInt(), homeScreenProvider.articlesList[index].content.toString());
-                                  // savedArticleScreenProvider.savedArticlesList.removeAt(addElementAtindex!);
-                                } else {
-                                  value.addItem(index);
-                                  addElementAtindex = index;
-                                  // savedArticleScreenProvider.addListItem(homeScreenProvider.articlesList[index]);
-                                  // savedArticleScreenProvider.addData(
-                                  //   homeScreenProvider.articlesList[index].description,
-                                  // );
                                   print("add Data function");
-                                  // print("${homeScreenProvider.articlesList[index].name.toString()}");
                                   savedArticleScreenProvider.addData(
+                                    uniqueId: homeScreenProvider.articlesList[index].uniqueId,
                                     author: homeScreenProvider.articlesList[index].author.toString(),
                                     name: homeScreenProvider.articlesList[index].name.toString(),
                                     description: homeScreenProvider.articlesList[index].description.toString(),
@@ -140,16 +117,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                     publishedAt: homeScreenProvider.articlesList[index].publishedAt.toString(),
                                     url: homeScreenProvider.articlesList[index].url.toString(),
                                     urlToImage: homeScreenProvider.articlesList[index].urlToImage.toString(),
-                                    // index: addElementAtindex,
+                                    content: homeScreenProvider.articlesList[index].content.toString()
                                   );
-                                  // print("${homeScreenProvider.articlesList[index].name.toString()}");
-                                }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          duration: Duration(seconds: 1),
+                                          content: Text("News is add to Saved Articles")
+                                      )
+                                  );
                               },
                               child: Icon(
-                                  value.selectedItem.contains(index) ? Icons.favorite : Icons.favorite_border_outlined
+                                Icons.add_box_outlined,
+                                size: 30,
                               ),
                             ),
-                            Icon(Icons.share), // icon-2
+                            Icon(
+                              Icons.share,
+                              size: 30,
+                            ), // icon-2
                           ],
                         ),
                       ),

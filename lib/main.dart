@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/Conditional%20Tasks/save_News.dart';
+import 'package:news_app/Constants/Routes/routes.dart';
+import 'package:news_app/Constants/Routes/routes_Name.dart';
 import 'package:news_app/Provider/home_Screen_Provider.dart';
 import 'package:news_app/Provider/saved_Articles_Screen_Provider.dart';
 import 'package:news_app/Screens/dashboard_Screen.dart';
+import 'package:news_app/Screens/home_Screen.dart';
+import 'package:news_app/Screens/profile_Screen.dart';
+import 'package:news_app/Screens/save_Article_Screen.dart';
+import 'package:news_app/Screens/search_Screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,12 +28,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SavedArticleScreenProvider()),
       ],
       child: MaterialApp(
+        routes: {
+          "/home_Screen" : (context) => HomeScreen(),
+          "/search_Screen" : (context) => SearchScreen(),
+          "/saved_Articles_Screen" : (context) => SaveArticleScreen(),
+          "/profile_Screen" : (context) => ProfileScreen(),
+        },
         title: 'Flutter Demo',
+        initialRoute: RoutesName.dashBoard,
+        onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: DashBoardNav(currentIndex: 0),
       ),
     );
   }

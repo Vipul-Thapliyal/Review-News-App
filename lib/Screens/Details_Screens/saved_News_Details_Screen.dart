@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Provider/saved_Articles_Screen_Provider.dart';
+import 'package:provider/provider.dart';
 
 class SavedNewsDetailsScreen extends StatefulWidget {
-  String? author;
-  String? name;
-  String? title;
-  String? description;
-  String? url;
-  String? urlToImage;
-  String? publishedAt;
-  String? content;
+  int? index;
 
   SavedNewsDetailsScreen(
     {
       Key? key,
-      required this.author,
-      required this.name,
-      required this.title,
-      required this.description,
-      required this.url,
-      required this.urlToImage,
-      required this.publishedAt,
-      required this.content,
+      required this.index,
     }) : super(key: key);
 
   @override
@@ -30,6 +18,9 @@ class SavedNewsDetailsScreen extends StatefulWidget {
 class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final saveArticleListProvider = Provider.of<SavedArticleScreenProvider>(context, listen: false);
+
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -81,7 +72,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                   children: [
                     /// Title
                     Text(
-                      "${widget.title}",
+                      // "${widget.title}",
+                      saveArticleListProvider.savedArticlesList[widget.index!].title.toString(),
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 20
@@ -109,7 +101,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                       // height: 100.0,
                       // width: 50.0, // fixed width and height
                         child: Image.network(
-                          widget.urlToImage.toString(),
+                          // widget.urlToImage.toString(),
+                          saveArticleListProvider.savedArticlesList[widget.index!].urlToImage.toString(),
                           loadingBuilder: (context, child, loadingProgress) {
                             if(loadingProgress == null) {
                               return child;
@@ -128,7 +121,9 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
 
                     /// Author
                     Text(
-                      "${widget.author.toString()}",
+                      // "${widget.author.toString()}",
+                      saveArticleListProvider.savedArticlesList[widget.index!].author.toString(),
+
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 20
@@ -140,7 +135,9 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                     /// Description
                     Container(
                       child: Text(
-                          "${widget.description.toString()}"
+                          // "${widget.description.toString()}"
+                        saveArticleListProvider.savedArticlesList[widget.index!].description.toString(),
+
                       ),
                     )
 

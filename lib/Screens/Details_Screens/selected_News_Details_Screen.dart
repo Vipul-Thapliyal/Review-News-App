@@ -3,6 +3,8 @@ import 'package:news_app/Provider/home_Screen_Provider.dart';
 import 'package:provider/provider.dart';
 
 class SelectedNewsDetailsScreen extends StatefulWidget {
+  var uniqueId;
+  int? index;
   String? author;
   String? name;
   String? title;
@@ -15,6 +17,8 @@ class SelectedNewsDetailsScreen extends StatefulWidget {
   SelectedNewsDetailsScreen(
     {
       Key? key,
+      required this.uniqueId,
+      required this.index,
       required this.author,
       required this.name,
       required this.title,
@@ -34,9 +38,6 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
   Widget build(BuildContext context) {
     final homeScreenProvider = Provider.of<HomeScreenProvider>(context, listen: false);
     homeScreenProvider.getNewsRespone(context);
-
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -90,6 +91,8 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
                     /// Title
                     Text(
                       "${widget.title}",
+                      // homeScreenProvider.articlesList[widget.index!].title.toString(),
+
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 20
@@ -151,7 +154,6 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
                         "${widget.description.toString()}"
                       ),
                     )
-
                   ],
                 ),
               ),

@@ -1,5 +1,6 @@
 
 class SavedArticles {
+  var uniqueId;
   SavedSource? source;
   var author;
   String? name;
@@ -14,6 +15,7 @@ class SavedArticles {
   SavedArticles(
       {
         // required this.source,
+        required this.uniqueId,
         required this.author,
         required this.title,
         required this.name,
