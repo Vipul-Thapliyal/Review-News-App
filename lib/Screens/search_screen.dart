@@ -15,12 +15,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search Screen"),
+        title: const Text("Search Screen"),
       ),
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             child: ListTile(
               title: TextFormField(
                 controller: userInput,
@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   hintText: "Search",
                 ),
               ),
-              trailing: Icon(Icons.search),
+              trailing: const Icon(Icons.search),
             ),
           ),
         ],

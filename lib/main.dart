@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Conditional%20Tasks/save_News.dart';
-import 'package:news_app/Constants/Routes/routes.dart';
-import 'package:news_app/Constants/Routes/routes_Name.dart';
 import 'package:news_app/Provider/home_Screen_Provider.dart';
-import 'package:news_app/Provider/saved_Articles_Screen_Provider.dart';
+import 'package:news_app/Screens/Details_Screens/selected_News_Details_Screen.dart';
 import 'package:news_app/Screens/dashboard_Screen.dart';
-import 'package:news_app/Screens/home_Screen.dart';
-import 'package:news_app/Screens/profile_Screen.dart';
-import 'package:news_app/Screens/save_Article_Screen.dart';
-import 'package:news_app/Screens/search_Screen.dart';
 import 'package:provider/provider.dart';
+
+import 'Screens/Details_Screens/saved_News_Details_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,19 +19,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
-        ChangeNotifierProvider(create: (context) => SaveNewsProvider()),
-        ChangeNotifierProvider(create: (context) => SavedArticleScreenProvider()),
       ],
       child: MaterialApp(
         routes: {
-          "/home_Screen" : (context) => HomeScreen(),
-          "/search_Screen" : (context) => SearchScreen(),
-          "/saved_Articles_Screen" : (context) => SaveArticleScreen(),
-          "/profile_Screen" : (context) => ProfileScreen(),
+          "/dashBoardScreen" : (context) => const DashBoardNav(),
+          "/savedNewsDetailsScreen" : (context) => const SavedNewsDetailsScreen(),
+          "/selectedNewsDetailsScreen" : (context) => const SelectedNewsDetailsScreen(),
         },
+        initialRoute: DashBoardNav.routeName,
         title: 'Flutter Demo',
-        initialRoute: RoutesName.dashBoard,
-        onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

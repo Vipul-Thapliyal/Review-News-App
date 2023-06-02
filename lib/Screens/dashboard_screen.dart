@@ -1,28 +1,22 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:news_app/Constants/Routes/routes.dart';
-import 'package:news_app/Constants/Routes/routes_Name.dart';
 import 'package:news_app/Screens/home_Screen.dart';
 import 'package:news_app/Screens/profile_Screen.dart';
 import 'package:news_app/Screens/save_Article_Screen.dart';
 import 'package:news_app/Screens/search_Screen.dart';
 
 class DashBoardNav extends StatefulWidget {
-  DashBoardNav({Key? key}) : super(key: key);
+
+  static const String routeName = "/dashBoardScreen";
+
+  const DashBoardNav({Key? key}) : super(key: key);
 
   @override
   State<DashBoardNav> createState() => _DashBoardNavState();
 }
 
 class _DashBoardNavState extends State<DashBoardNav> {
-  int _selectedIndex = 0;
-
-  static const TextStyle optionStyle = TextStyle(
-      fontSize: 30, fontWeight: FontWeight.bold);
-
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  int? _selectedIndex;
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
@@ -30,13 +24,6 @@ class _DashBoardNavState extends State<DashBoardNav> {
     SaveArticleScreen(),
     ProfileScreen(),
   ];
-
-  // static List _widgetOptions = [
-  //   Navigator.pushNamed(BuildContext as BuildContext, RoutesName.home),
-  //   Navigator.pushNamed(BuildContext as BuildContext, RoutesName.search),
-  //   Navigator.pushNamed(BuildContext as BuildContext, RoutesName.savedArticle),
-  //   Navigator.pushNamed(BuildContext as BuildContext, RoutesName.profile),
-  // ];
 
 
   @override
@@ -55,15 +42,19 @@ class _DashBoardNavState extends State<DashBoardNav> {
 
   @override
   Widget build(BuildContext context) {
-    print("Dashboard");
+    if(kDebugMode) {
+      print("Dashboard");
+      // String currentTime = DateFormat("yyyy-MM-dd").format(DateTime.now());
+      // print(currentTime);
+    }
     return Scaffold(
       body:
       Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(_selectedIndex!),
       ),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
@@ -91,7 +82,7 @@ class _DashBoardNavState extends State<DashBoardNav> {
           ),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedIndex!,
         showUnselectedLabels: true,
         iconSize: 30,
         backgroundColor: Colors.white,

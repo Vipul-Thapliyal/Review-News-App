@@ -1,43 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Provider/home_Screen_Provider.dart';
-import 'package:provider/provider.dart';
 
-class SelectedNewsDetailsScreen extends StatefulWidget {
-  var uniqueId;
-  int? index;
-  String? author;
-  String? name;
-  String? title;
-  String? description;
-  String? url;
-  String? urlToImage;
-  String? publishedAt;
-  String? content;
+class SelectedNewsDetailsScreen extends StatelessWidget {
+  static const String routeName = "/selectedNewsDetailsScreen";
 
-  SelectedNewsDetailsScreen(
+  const SelectedNewsDetailsScreen(
     {
       Key? key,
-      required this.uniqueId,
-      required this.index,
-      required this.author,
-      required this.name,
-      required this.title,
-      required this.description,
-      required this.url,
-      required this.urlToImage,
-      required this.publishedAt,
-      required this.content,
     }) : super(key: key);
 
   @override
-  State<SelectedNewsDetailsScreen> createState() => _SelectedNewsDetailsScreenState();
-}
-
-class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
-  @override
   Widget build(BuildContext context) {
-    final homeScreenProvider = Provider.of<HomeScreenProvider>(context, listen: false);
-    homeScreenProvider.getNewsResponse(context);
+    var arguments = ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
+    final author = arguments["author"];
+    final name = arguments["name"];
+    final title = arguments["title"];
+    final description = arguments["description"];
+    final urlToImage = arguments["urlToImage"];
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +24,7 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(
+          child: const Icon(
             Icons.keyboard_arrow_left,
             color: Colors.black,
             size: 35,
@@ -56,9 +34,9 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
           Wrap(
 
             spacing: 12, // space between two icons
-            children: <Widget>[
+            children: const <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: 15),
                 child: Icon(
                   Icons.bookmark_border,
                   size: 30,
@@ -66,7 +44,7 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15,right: 10),
+                padding: EdgeInsets.only(top: 15,right: 10),
                 child: Icon(
                   Icons.share,
                   size: 30,
@@ -82,78 +60,77 @@ class _SelectedNewsDetailsScreenState extends State<SelectedNewsDetailsScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // height: screenHeight * 0.8,
                 child: Column(
                   children: [
                     /// Title
                     Text(
-                      "${widget.title}",
+                      "$title",
                       // homeScreenProvider.articlesList[widget.index!].title.toString(),
 
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 20
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
                     /// Source
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(""
-                          "${widget.name.toString()}",
-                          style: TextStyle(
+                          "$name",
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
                         )
                       ],
                     ),
 
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
                     /// Image
                     SizedBox(
                         // height: 100.0,
                         // width: 50.0, // fixed width and height
                         child: Image.network(
-                          widget.urlToImage.toString(),
+                          urlToImage.toString(),
                           loadingBuilder: (context, child, loadingProgress) {
                             if(loadingProgress == null) {
                               return child;
                             }
-                            else {
-                              return Center(
-                                child: Text("Loading.."),
-                              );
-                            }
+                            return SizedBox(
+                              child:
+                              // Text("Wait...")
+                              Image.asset(
+                                "assets/images/placeholderImage.png",
+                                fit: BoxFit.fill,
+                              ),
+                            );
                           },
                           errorBuilder: (context, exception, stackTrace) {
-                            return Icon(Icons.error);
+                            return const Icon(Icons.error);
                           },
                         )
                     ),
 
                     /// Author
                     Text(
-                      "${widget.author.toString()}",
-                      style: TextStyle(
+                      author.toString(),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 20
                       ),
                     ),
 
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
                     /// Description
-                    Container(
-                      child: Text(
-                        "${widget.description.toString()}"
-                      ),
-                    )
+                    Text(description.toString())
                   ],
                 ),
               ),

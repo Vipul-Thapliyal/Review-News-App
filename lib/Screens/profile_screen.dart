@@ -7,11 +7,10 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Profile"),
+        title: const Text("Your Profile"),
       ),
       body: Column(
-        children: [
-        ],
+        children: const [],
       ),
     );
   }
