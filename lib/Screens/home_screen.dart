@@ -5,6 +5,7 @@ import 'package:news_app/Screens/Details_Screens/selected_News_Details_Screen.da
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = "/homeScreenRoute";
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,6 +25,8 @@ class HomeScreen extends StatelessWidget {
             );
           }
           else if(snapshot.hasError) {
+            debugPrint("Snapshot erro");
+            debugPrint(snapshot.error.toString());
             return const Center(
               child: Text("An error has occurred, Please try again later"),
             );
@@ -41,8 +44,9 @@ class HomeScreen extends StatelessWidget {
                             context,
                             SelectedNewsDetailsScreen.routeName,
                             arguments: {
+                              "index" : index.toString(),
                               "author" : homeScreenProvider.articlesList[index].author.toString(),
-                              "name" : homeScreenProvider.articlesList[index].name.toString(),
+                              "name" : homeScreenProvider.articlesList[index].source!.name.toString(),
                               "title" : homeScreenProvider.articlesList[index].title.toString(),
                               "description" : homeScreenProvider.articlesList[index].description.toString(),
                               "urlToImage" : homeScreenProvider.articlesList[index].urlToImage.toString(),
@@ -53,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                             height: 200.0,
                             width: 100.0, // fixed width and height
                             child: Image.network(
+                              // homeScreenProvider.articlesList[index].urlToImage.toString(),
                               homeScreenProvider.articlesList[index].urlToImage.toString(),
                               fit: BoxFit.fill,
                               loadingBuilder: (context, child, loadingProgress) {
@@ -80,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "#${homeScreenProvider.articlesList[index].name.toString()}",
+                              "#${homeScreenProvider.articlesList[index].source!.name.toString()}",
                               style: const TextStyle(
                                 color: Colors.blue,
                               ),

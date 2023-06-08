@@ -42,7 +42,7 @@ class _SaveArticleScreenState extends State<SaveArticleScreen> {
                   SavedNewsDetailsScreen.routeName,
                   arguments: {
                     "author" : favoriteItems[index].author.toString(),
-                    "name" : favoriteItems[index].name.toString(),
+                    "name" : favoriteItems[index].source!.name.toString(),
                     "title" : favoriteItems[index].title.toString(),
                     "description" : favoriteItems[index].description.toString(),
                     "urlToImage" : favoriteItems[index].urlToImage.toString(),
@@ -77,7 +77,7 @@ class _SaveArticleScreenState extends State<SaveArticleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "#${favoriteItems[index].name.toString()}",
+                      "#${favoriteItems[index].source!.name.toString()}",
                       style: const TextStyle(
                         color: Colors.blue,
                       ),

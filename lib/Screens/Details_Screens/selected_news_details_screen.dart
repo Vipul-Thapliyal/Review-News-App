@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Provider/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectedNewsDetailsScreen extends StatelessWidget {
   static const String routeName = "/selectedNewsDetailsScreen";
 
+  // Map<String, dynamic> data;
+
+  // const SelectedNewsDetailsScreen(
   const SelectedNewsDetailsScreen(
     {
       Key? key,
+      // required this.data,
     }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var arguments = ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
+    final index = int.parse(arguments["index"]);
     final author = arguments["author"];
     final name = arguments["name"];
     final title = arguments["title"];
     final description = arguments["description"];
     final urlToImage = arguments["urlToImage"];
+
+    // debugPrint(data.toString());
+    debugPrint("index");
+    debugPrint(index.toString());
+    debugPrint(index.runtimeType.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +44,6 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
         ),
         actions: [
           Wrap(
-
             spacing: 12, // space between two icons
             children: const <Widget>[
               Padding(
@@ -58,6 +69,10 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // Text(data["Name"].toString()),
+          //
+          // Text(data["Age"].toString()),
+
           Expanded(
             child: SingleChildScrollView(
               physics: const ScrollPhysics(),
@@ -66,11 +81,11 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                 // height: screenHeight * 0.8,
                 child: Column(
                   children: [
-                    /// Title
+                  /// Title
                     Text(
                       "$title",
                       // homeScreenProvider.articlesList[widget.index!].title.toString(),
-
+                      // homeScreenProvider.articlesList[index].title.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 20
@@ -97,25 +112,25 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                     SizedBox(
                         // height: 100.0,
                         // width: 50.0, // fixed width and height
-                        child: Image.network(
-                          urlToImage.toString(),
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if(loadingProgress == null) {
-                              return child;
-                            }
-                            return SizedBox(
-                              child:
-                              // Text("Wait...")
-                              Image.asset(
-                                "assets/images/placeholderImage.png",
-                                fit: BoxFit.fill,
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, exception, stackTrace) {
-                            return const Icon(Icons.error);
-                          },
-                        )
+                      child: Image.network(
+                        urlToImage.toString(),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if(loadingProgress == null) {
+                            return child;
+                          }
+                          return SizedBox(
+                            child:
+                            // Text("Wait...")
+                            Image.asset(
+                              "assets/images/placeholderImage.png",
+                              fit: BoxFit.fill,
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, exception, stackTrace) {
+                          return const Icon(Icons.error);
+                        },
+                      )
                     ),
 
                     /// Author

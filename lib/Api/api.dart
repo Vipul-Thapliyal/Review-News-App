@@ -16,7 +16,7 @@ class ApiClient {
     var url = Uri.parse(link);
 
     if (kDebugMode) {
-      // print(url);
+      print(url);
     }
 
     try {
@@ -24,6 +24,7 @@ class ApiClient {
         "Content-Type": "application/json",
       }).timeout(const Duration(seconds: TIME_OUT_DURATION));
       return _processResponse(response);
+      // return response;
     } on SocketException {
       throw ('No Internet Connection');
     } on TimeoutException {
@@ -34,8 +35,10 @@ class ApiClient {
   dynamic _processResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        final decoderesponse = json.decode(response.body) as Map<String, dynamic>;
+        final decoderesponse = json.decode(response.body);
         return decoderesponse;
+      default:
+        debugPrint("status code is not 200");
     }
   }
 }
