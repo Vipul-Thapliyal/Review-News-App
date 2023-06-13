@@ -41,11 +41,12 @@ class _SaveArticleScreenState extends State<SaveArticleScreen> {
                   context,
                   SavedNewsDetailsScreen.routeName,
                   arguments: {
-                    "author" : favoriteItems[index].author.toString(),
-                    "name" : favoriteItems[index].source!.name.toString(),
-                    "title" : favoriteItems[index].title.toString(),
-                    "description" : favoriteItems[index].description.toString(),
-                    "urlToImage" : favoriteItems[index].urlToImage.toString(),
+                    "article" : favoriteItems[index],
+                    // "author" : favoriteItems[index].author.toString(),
+                    // "name" : favoriteItems[index].source!.name.toString(),
+                    // "title" : favoriteItems[index].title.toString(),
+                    // "description" : favoriteItems[index].description.toString(),
+                    // "urlToImage" : favoriteItems[index].urlToImage.toString(),
                   },
                 );
               },

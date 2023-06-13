@@ -43,14 +43,16 @@ class HomeScreen extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             SelectedNewsDetailsScreen.routeName,
-                            arguments: {
-                              "index" : index.toString(),
-                              "author" : homeScreenProvider.articlesList[index].author.toString(),
-                              "name" : homeScreenProvider.articlesList[index].source!.name.toString(),
-                              "title" : homeScreenProvider.articlesList[index].title.toString(),
-                              "description" : homeScreenProvider.articlesList[index].description.toString(),
-                              "urlToImage" : homeScreenProvider.articlesList[index].urlToImage.toString(),
-                            },
+                            arguments: index.toInt(),
+                            // arguments: {
+                            //   // "article" : homeScreenProvider.articlesList[index],
+                            //   "index" : index.toInt(),
+                            //   // "author" : homeScreenProvider.articlesList[index].author.toString(),
+                            //   // "name" : homeScreenProvider.articlesList[index].source!.name.toString(),
+                            //   // "title" : homeScreenProvider.articlesList[index].title.toString(),
+                            //   // "description" : homeScreenProvider.articlesList[index].description.toString(),
+                            //   // "urlToImage" : homeScreenProvider.articlesList[index].urlToImage.toString(),
+                            // },
                           );
                         },
                         leading: SizedBox(

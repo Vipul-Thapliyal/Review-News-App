@@ -5,29 +5,17 @@ import 'package:provider/provider.dart';
 class SelectedNewsDetailsScreen extends StatelessWidget {
   static const String routeName = "/selectedNewsDetailsScreen";
 
-  // Map<String, dynamic> data;
+  final int index;
 
-  // const SelectedNewsDetailsScreen(
   const SelectedNewsDetailsScreen(
     {
       Key? key,
-      // required this.data,
+      required this.index,
     }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var arguments = ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
-    final index = int.parse(arguments["index"]);
-    final author = arguments["author"];
-    final name = arguments["name"];
-    final title = arguments["title"];
-    final description = arguments["description"];
-    final urlToImage = arguments["urlToImage"];
-
-    // debugPrint(data.toString());
-    debugPrint("index");
-    debugPrint(index.toString());
-    debugPrint(index.runtimeType.toString());
+    final homeScreenProvider = Provider.of<HomeScreenProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,9 +71,7 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                   children: [
                   /// Title
                     Text(
-                      "$title",
-                      // homeScreenProvider.articlesList[widget.index!].title.toString(),
-                      // homeScreenProvider.articlesList[index].title.toString(),
+                      homeScreenProvider.articlesList[index].title.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 20
@@ -97,8 +83,8 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(""
-                          "$name",
+                        Text(
+                          homeScreenProvider.articlesList[index].source!.name.toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
@@ -113,7 +99,7 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                         // height: 100.0,
                         // width: 50.0, // fixed width and height
                       child: Image.network(
-                        urlToImage.toString(),
+                        homeScreenProvider.articlesList[index].urlToImage.toString(),
                         loadingBuilder: (context, child, loadingProgress) {
                           if(loadingProgress == null) {
                             return child;
@@ -135,7 +121,7 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
 
                     /// Author
                     Text(
-                      author.toString(),
+                      homeScreenProvider.articlesList[index].author.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 20
@@ -145,7 +131,9 @@ class SelectedNewsDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 20,),
 
                     /// Description
-                    Text(description.toString())
+                    // Text(description.toString())
+                    // Text(article.description.toString())
+                    Text(homeScreenProvider.articlesList[index].description.toString(),),
                   ],
                 ),
               ),

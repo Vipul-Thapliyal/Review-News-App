@@ -16,11 +16,12 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final  author = arguments["author"];
-    final name = arguments["name"];
-    final title = arguments["title"];
-    final description = arguments["description"];
-    final urlToImage = arguments["urlToImage"];
+    final article = arguments["article"];
+    // final  author = arguments["author"];
+    // final name = arguments["name"];
+    // final title = arguments["title"];
+    // final description = arguments["description"];
+    // final urlToImage = arguments["urlToImage"];
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +74,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                   children: [
                     /// Title
                     Text(
-                      title.toString(),
+                      // title.toString(),
+                      article.title.toString(),
                       style: const TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 20
@@ -83,7 +85,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
 
                     /// Source
                     Text(
-                      name.toString(),
+                      // name.toString(),
+                      article.source!.name.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                       ),
@@ -94,7 +97,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                     /// Image
                     SizedBox(
                       child: Image.network(
-                        urlToImage.toString(),
+                        // urlToImage.toString(),
+                        article.urlToImage.toString(),
                         loadingBuilder: (context, child, loadingProgress) {
                           if(loadingProgress == null) {
                             return child;
@@ -116,7 +120,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
 
                     /// Author
                     Text(
-                      author.toString(),
+                      // author.toString(),
+                      article.author.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
@@ -126,7 +131,8 @@ class _SavedNewsDetailsScreenState extends State<SavedNewsDetailsScreen> {
                     const SizedBox(height: 20,),
 
                     /// Description
-                    Text(description.toString(),)
+                    // Text(description.toString(),)
+                    Text(article.description.toString(),)
                   ],
                 ),
               ),

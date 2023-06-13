@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Provider/home_Screen_Provider.dart';
 import 'package:news_app/Screens/Details_Screens/saved_news_details_screen.dart';
 import 'package:news_app/Screens/Details_Screens/selected_news_details_screen.dart';
 import 'package:news_app/Screens/dashboard_screen.dart';
@@ -8,15 +9,12 @@ class Routes {
 
     Widget page;
     String? routeName = settings.name;
+    final args = settings.arguments;
 
     switch (routeName) {
       case DashBoardNav.routeName:
         page = const DashBoardNav();
         return MaterialPageRoute(builder: (context) => page);
-
-      // case HomeScreen.routeName:
-      //   page = const HomeScreen();
-      //   return MaterialPageRoute(builder: (context) => page);
 
       case SavedNewsDetailsScreen.routeName:
         var arguments = settings.arguments as Map<String, dynamic>;
@@ -27,18 +25,13 @@ class Routes {
         );
 
       case SelectedNewsDetailsScreen.routeName:
-        var arguments = settings.arguments as Map<String, dynamic>;
-        page = const SelectedNewsDetailsScreen();
-        // page = SelectedNewsDetailsScreen(
-        //   data: const {
-        //     "Name" : "Vipul",
-        //     "Age" : 22,
-        //   },
-        // );
-        return MaterialPageRoute(
-          builder: (context) => page,
-          settings: RouteSettings(arguments: arguments)
-        );
+        if(args is int) {
+          page = SelectedNewsDetailsScreen(index: args);
+          return MaterialPageRoute(
+            builder: (context) => page,
+          );
+        }
+        break;
 
       default:
         return MaterialPageRoute(builder: (_) {
@@ -54,5 +47,6 @@ class Routes {
 
         // return null;
     }
+    return null;
   }
 }
