@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
+        ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
       ],
       child: MaterialApp(
         onGenerateRoute: Routes.generateRoute,
